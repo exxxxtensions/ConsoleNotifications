@@ -1,0 +1,46 @@
+{
+
+    "name": "Console Notifications",
+  
+    "description": "Exxxtensions project",
+  
+    "version": "0.1",
+  
+    "manifest_version": 3,
+
+    "action": {
+        "default_icon": { 
+            "16": "/images/alert_16.png",
+            "32": "/images/alert_32.png",
+            "48": "/images/alert_48.png",
+            "128": "/images/alert_128.png"
+        },
+        "default_popup": "/html/index.html"
+    },
+    "icons": { 
+            "16": "/images/alert_16.png",
+            "32": "/images/alert_32.png",
+            "48": "/images/alert_48.png",
+            "128": "/images/alert_128.png" 
+    },
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "tabs"
+    ],
+    "host_permissions": [
+        "http://*/*",
+        "https://*/*",
+        "file:///C:/*"
+    ],
+    "content_scripts":[{
+        "matches": [
+            "http://*/*",
+            "https://*/*",
+            "file:///C:/*"
+        ],
+        "js": [
+            "/js/script_in_content.js"
+        ]
+    }]
+  }
