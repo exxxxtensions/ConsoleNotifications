@@ -24,14 +24,13 @@
             "128": "/images/alert_128.png" 
     },
     "permissions": [
-        "activeTab",
-        "scripting",
         "tabs"
     ],
     "host_permissions": [
         "http://*/*",
         "https://*/*",
-        "file:///C:/*"
+        "file:///C:/*",
+        "*://*/*"
     ],
     "content_scripts":[{
         "matches": [
@@ -41,6 +40,13 @@
         ],
         "js": [
             "/js/script_in_content.js"
-        ]
-    }]
-  }
+        ],
+        "run_at": "document_end"
+    }],
+    "web_accessible_resources": [
+        {
+            "resources": [ "/js/window_handler.js" ],
+            "matches": ["http://*/*", "https://*/*"]
+        }
+    ]
+}
