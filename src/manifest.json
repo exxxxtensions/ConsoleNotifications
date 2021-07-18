@@ -26,12 +26,6 @@
     "permissions": [
         "tabs"
     ],
-    "host_permissions": [
-        "http://*/*",
-        "https://*/*",
-        "file:///C:/*",
-        "*://*/*"
-    ],
     "content_scripts":[{
         "matches": [
             "http://*/*",
@@ -45,7 +39,7 @@
     }],
     "web_accessible_resources": [
         {
-            "resources": [ "/js/window_handler.js" ],
+            "resources": [ "/js/window_handler.js", "/js/notification_html_element.js"],
             "matches": ["http://*/*", "https://*/*"]
         }
     ]
