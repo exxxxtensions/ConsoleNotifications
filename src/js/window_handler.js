@@ -1,7 +1,7 @@
 console.defaultError = console.error.bind(console);
 console.errors = [];
 window.onerror = function myErrorHandler(err, url, line) {
-    showMessage(err);
+    showMessage(generateMessage(err, url, line));
     return false;
 }
 console.error = function () {
@@ -10,6 +10,17 @@ console.error = function () {
     console.log(Array.from(arguments));
     showMessage(arguments);
 }
+
+function generateMessage(err, url, line) {
+    let message = err;
+    let fileWithExtension = url.substring(url.lastIndexOf('/') + 1);
+    let file = fileWithExtension.substring(0, fileWithExtension.lastIndexOf('.'));
+    let href = "<a href='" + url + "'>" + fileWithExtension + ":" + line + "</a>"
+    let margins = "<br> &nbsp; &nbsp; &nbsp; "
+    message += margins + "at " + file + " (" + href + ")"
+    return message;
+}
+
 let containerForNotifications = null;
 
 function createContainerForNotifications() {
