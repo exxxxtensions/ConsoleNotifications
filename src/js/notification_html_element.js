@@ -4,7 +4,7 @@ tmpl.innerHTML = `
   .notificationItemWrapper {
     cursor: pointer;
     width: 350px;
-    height: 50px;
+    min-height: 50px;
     background: white;
     opacity: 0.85;
     z-index:  999999999999;
@@ -26,7 +26,7 @@ tmpl.innerHTML = `
   }
   .notificationItemMessage {
     padding: 5px 15px 0 10px;
-    color: #bf380a;
+    color: #d43701;
   }
   </style> <!-- look ma, scoped styles -->
   <div class="notificationItemWrapper">
@@ -63,15 +63,16 @@ function createCustomElement() {
 
         connectedCallback() {
             this.shadowRootCustomeValue = this.attachShadow({mode: 'open'});
-            this.shadowRootCustomeValue.appendChild(tmpl.content.cloneNode(true));
+            this.shadowRootCustomeValue.append(tmpl.content.cloneNode(true));
             this.shadowRootCustomeValue.querySelector('.close').addEventListener('click', e => this.close());
             this.addEventListener('click', e => this.close());
         }
 
         attributeChangedCallback(name, oldValue, newValue) {
-            const textNode = document.createElement('p');
+            const textNode = document.createElement('div');
             textNode.innerHTML = newValue;
-            this.shadowRootCustomeValue.querySelector('.notificationItemMessage').appendChild(textNode);
+            const messagesNode = this.shadowRootCustomeValue.querySelector('.notificationItemMessage');
+            messagesNode.prepend(textNode);
             // TODO: also react to the open attribute changing.
         }
 

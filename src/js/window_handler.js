@@ -39,6 +39,8 @@ function createContainerForNotifications() {
     left: 20px;
     bottom: 40px;
     z-index:  99999999999;
+    -webkit-mask:linear-gradient(transparent, #fff);
+    mask:linear-gradient(transparent, #fff);
   }
 </style>`;
     document.body.appendChild(containerForNotifications);
@@ -51,5 +53,5 @@ function showMessage(message) {
     const notificationNode = document.createElement("notification-custom-html");
     setTimeout(() => notificationNode.setAttribute('message', message), 0);
 
-    containerForNotifications.appendChild(notificationNode);
+    containerForNotifications.prepend(notificationNode);
 }
