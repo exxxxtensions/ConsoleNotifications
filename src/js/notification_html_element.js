@@ -26,7 +26,7 @@ tmpl.innerHTML = `
   }
   .notificationItemMessage {
     padding: 5px 15px 0 10px;
-    color: #d43701;
+    color: #ef4000;
   }
   </style> <!-- look ma, scoped styles -->
   <div class="notificationItemWrapper">
