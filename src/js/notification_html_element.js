@@ -11,7 +11,6 @@ tmpl.innerHTML = `
     border-radius: 3px;
     box-shadow: 3px -3px 9px;
     margin: 10px 5px 5px 2px;
-   
   }
   .notificationItem {
     position: absolute;
@@ -64,8 +63,8 @@ function createCustomElement() {
         connectedCallback() {
             this.shadowRootCustomeValue = this.attachShadow({mode: 'open'});
             this.shadowRootCustomeValue.append(tmpl.content.cloneNode(true));
-            this.shadowRootCustomeValue.querySelector('.close').addEventListener('click', e => this.close());
-            this.addEventListener('click', e => this.close());
+            this.shadowRootCustomeValue.querySelector('.close').addEventListener('click', () => this.close());
+            this.addEventListener('click', () => this.close());
         }
 
         attributeChangedCallback(name, oldValue, newValue) {
@@ -77,7 +76,7 @@ function createCustomElement() {
         }
 
         set message(mess) {
-            console.log('mess ',mess);
+            console.log('mess ', mess);
         }
 
         close() {

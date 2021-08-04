@@ -28,9 +28,7 @@
     ],
     "content_scripts":[{
         "matches": [
-            "http://*/*",
-            "https://*/*",
-            "file:///C:/*"
+            "<all_urls>"
         ],
         "js": [
             "/js/script_in_content.js"
@@ -40,7 +38,7 @@
     "web_accessible_resources": [
         {
             "resources": [ "/js/window_handler.js", "/js/notification_html_element.js"],
-            "matches": ["http://*/*", "https://*/*"]
+            "matches": ["<all_urls>"]
         }
     ]
 }

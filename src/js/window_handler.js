@@ -1,24 +1,24 @@
 console.defaultError = console.error.bind(console);
-console.errors = [];
-window.onerror = function myErrorHandler(err, url, line) {
-    showMessage(generateMessage(err, url, line));
+consoleErrors = [];
+window.onerror = function myErrorHandler(message, source, lineno, colno, error) {
+    showMessage(generateMessage(message, source, lineno, colno, error));
     return false;
 }
 console.error = function () {
     console.defaultError.apply(console, arguments);
-    console.errors.push(Array.from(arguments));
+    consoleErrors.push(Array.from(arguments));
     console.log(Array.from(arguments));
     showMessage(Array.from(arguments).toString());
 }
 
-function generateMessage(err, url, line) {
-    let message = err;
-    let fileWithExtension = url.substring(url.lastIndexOf('/') + 1);
+function generateMessage(message, source, lineno, colno, error) {
+    let resultMessage = message;
+    let fileWithExtension = source.substring(source.lastIndexOf('/') + 1);
     let file = fileWithExtension.substring(0, fileWithExtension.lastIndexOf('.'));
-    let href = "<a target='_blank' href='" + url + "'>" + fileWithExtension + ":" + line + "</a>"
-    let margins = "<br> &nbsp; &nbsp; &nbsp; "
-    message += margins + "at " + file + " (" + href + ")"
-    return message;
+    let href = "<a target='_blank' href='" + source + "'>" + fileWithExtension + ":" + lineno + "</a>";
+    let margins = "<br> &nbsp; &nbsp; &nbsp; ";
+    resultMessage += margins + "at " + file + " (" + href + ")";
+    return resultMessage;
 }
 
 let containerForNotifications = null;
@@ -27,8 +27,8 @@ function createContainerForNotifications() {
     containerForNotifications = document.createElement('div');
     containerForNotifications.id = 'containerForNotifications';
     containerForNotifications.innerHTML = `
-          <style>
-          #containerForNotifications {
+    <style>
+        #containerForNotifications {
             display: flex;
             flex-direction: column;
             width: 400px;
@@ -40,26 +40,27 @@ function createContainerForNotifications() {
             z-index:  99999999999;
             -webkit-mask:linear-gradient(transparent, #fff);
             mask:linear-gradient(transparent, #fff);
-          }
-          #containerForNotifications::-webkit-scrollbar {
-              width: 20px;
-          }
-            
-          #containerForNotifications::-webkit-scrollbar-track {
-              background-color: transparent;
-          }
-            
-          #containerForNotifications::-webkit-scrollbar-thumb {
-              background-color: #d6dee1;
-              border-radius: 20px;
-              border: 6px solid transparent;
-              background-clip: content-box;
-          }
-            
-          #containerForNotifications::-webkit-scrollbar-thumb:hover {
-              background-color: #a8bbbf;
-          }
-        </style>`;
+        }
+
+        #containerForNotifications::-webkit-scrollbar {
+          width: 20px;
+        }
+
+        #containerForNotifications::-webkit-scrollbar-track {
+          background-color: transparent;
+        }
+
+        #containerForNotifications::-webkit-scrollbar-thumb {
+          background-color: #d6dee1;
+          border-radius: 20px;
+          border: 6px solid transparent;
+          background-clip: content-box;
+        }
+
+        #containerForNotifications::-webkit-scrollbar-thumb:hover {
+          background-color: #a8bbbf;
+        }
+    </style>`;
     document.body.append(containerForNotifications);
 }
 
