@@ -22,6 +22,20 @@ function generateMessage(err, url, line) {
 }
 
 let containerForNotifications = null;
+let clearAllButton = null;
+
+function createClearAllButton() {
+    clearAllButton= document.createElement('button');
+    clearAllButton.innerHTML = 'Clear All';
+    clearAllButton.onclick = () => {
+        while (containerForNotifications.getElementsByTagName('notification-custom-html').length) {
+            const elem = containerForNotifications.getElementsByTagName('notification-custom-html')[0];
+            containerForNotifications.removeChild(elem);
+        }
+    }
+    containerForNotifications.append(clearAllButton);
+
+}
 
 function createContainerForNotifications() {
     containerForNotifications = document.createElement('div');
@@ -66,6 +80,7 @@ function createContainerForNotifications() {
 function showMessage(message) {
     if (!containerForNotifications) {
         createContainerForNotifications();
+        createClearAllButton();
     }
     const notificationNode = document.createElement("notification-custom-html");
     setTimeout(() => notificationNode.setAttribute('message', message), 0);
